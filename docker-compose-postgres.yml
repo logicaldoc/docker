@@ -1,0 +1,29 @@
+version: '2'
+services:
+ db:
+  container_name: ld-postgres
+  image: postgres:latest
+  ports:
+   - 5432:5432
+  environment:
+   - POSTGRES_DB=logicaldoc
+   - POSTGRES_USER=ldoc
+   - POSTGRES_PASSWORD=changeme
+
+ logicaldoc:
+  depends_on:
+   - db
+  container_name: logicaldoc
+  image: logicaldoc/logicaldoc-ee
+  ports:
+   - 8080:8080
+  environment:
+   - LDOC_MEMORY=2000
+   - LDOC_USERNO=LogicalDOC-activation-code
+   - DB_HOST=ld-postgres
+   - DB_NAME=logicaldoc
+   - DB_USER=ldoc
+   - DB_PASSWORD=changeme
+   - DB_PORT=5432
+   - DB_ENGINE=postgres
+
