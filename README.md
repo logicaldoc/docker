@@ -21,7 +21,7 @@ docker run -d --name=mysql-ld --env="MYSQL_ROOT_PASSWORD=mypassword" --env="MYSQ
 
 ### 2) Run the LogicalDOC container
 ```Shell
-docker run -d -p 8080:8080 --env LDOC_USERNO=<your userno> --link mysql-ld logicaldoc/logicaldoc-ee
+docker run -d -p 8080:8080 --env LDOC_USERNO=<your userno> --link mysql-ld logicaldoc/logicaldoc
 ```
 
 This image includes EXPOSE 8080 (the logicaldoc port). The default LogicalDOC configuration is applied.
@@ -36,7 +36,7 @@ If you need an activation code, you can get one delivered to your email by filli
 
 ## Start a LogicalDOC with some settings
 ```Shell
-docker run -d -p 8080:8080 -p 1000:22 --env LDOC_USERNO=<your userno> --env LDOC_MEMORY=4000 --link mysql-ld logicaldoc/logicaldoc-ee
+docker run -d -p 8080:8080 -p 1000:22 --env LDOC_USERNO=<your userno> --env LDOC_MEMORY=4000 --link mysql-ld logicaldoc/logicaldoc
 ```
 This will run the same image as above but with 4000 MB memory allocated to LogicalDOC, moreover it opens the SSH access through port 1000.
 
@@ -55,5 +55,5 @@ The LogicalDOC image uses environment variables that allow to obtain a more spec
 * **DB_PASSWORD**: the password (default is 'changeme')
 
 ## Docker-Compose
-Some docker-compose examples are available in the repository of this container on GitHub https://github.com/logicaldoc/logicaldoc-ee
+Some docker-compose examples are available in the repository of this container on GitHub https://github.com/logicaldoc/logicaldoc
 
