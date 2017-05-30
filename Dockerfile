@@ -1,6 +1,5 @@
 # LogicalDOC Document Management System ( http://www.logicaldoc.com )
 FROM phusion/baseimage
-MAINTAINER "Alessandro Gasparini" <devel@logicaldoc.com>
 
 ENV LDOC_VERSION="7.6.4"
 ENV LDOC_MEMORY="2000"
@@ -20,8 +19,8 @@ ENV DB_DBHOST="mysql-ld"
 ENV DB_PORT="3306"
 
 # Some preparations
-RUN apt-get update && apt-get upgrade -y
-RUN apt-get install -y perl pwgen --no-install-recommends 
+RUN apt-get update && \ 
+    apt-get install -y perl pwgen --no-install-recommends 
 
 # Prepare system for java installation
 RUN apt-get -y install software-properties-common python-software-properties
