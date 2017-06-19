@@ -1,7 +1,7 @@
 # LogicalDOC Document Management System ( http://www.logicaldoc.com )
 FROM centos:7 
 
-ENV LDOC_VERSION="7.6.4"
+ENV LDOC_VERSION="7.7"
 ENV LDOC_MEMORY="2000"
 ENV LDOC_USERNO=" "
 ENV LDOC_HOME="/LogicalDOC"
