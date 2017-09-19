@@ -1,7 +1,7 @@
 # LogicalDOC Document Management System ( http://www.logicaldoc.com )
 FROM centos:7 
 
-ENV LDOC_VERSION="7.7.1"
+ENV LDOC_VERSION="7.7.2"
 ENV LIBREOFFICE_VERSION="5.3.4"
 ENV LDOC_MEMORY="2000"
 ENV LDOC_USERNO=" "
@@ -88,4 +88,3 @@ ADD auto-install.j2 $LDOC_HOME
 
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["/docker-entrypoint.sh"]
