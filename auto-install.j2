@@ -3,7 +3,7 @@
     <com.izforge.izpack.panels.hello.HelloPanel id="HelloPanel_0"/>
     <com.izforge.izpack.panels.licence.LicencePanel id="LicencePanel_1"/>
     <com.logicaldoc.installer.LDTargetPanel id="target_directory">
-        <installpath>/opt/logicaldoc</installpath>
+        <installpath>{{ LDOC_HOME | default('/LogicalDOC') }}</installpath>
     </com.logicaldoc.installer.LDTargetPanel>
     <com.izforge.izpack.panels.packs.PacksPanel id="PacksPanel_3">
         <pack index="0" name="Base" selected="true"/>
@@ -34,12 +34,12 @@
         <entry key="maxmemory" value="{{ LDOC_MEMORY | default('2000') }}"/>
         <entry key="httpport" value="8080"/>
         <entry key="httpsport" value="8443"/>
-        <entry key="architecture" value="64bit"/>
     </com.izforge.izpack.panels.userinput.UserInputPanel>
     <com.izforge.izpack.panels.userinput.UserInputPanel id="panel_extapps">
-        <entry key="openoffice" value="/usr/lib/libreoffice"/>
-        <entry key="tesseract" value="/usr/bin/tesseract"/>
+        <entry key="openoffice" value="/opt/libreoffice5.3"/>
+        <entry key="tesseract" value="/usr/local/bin/tesseract"/>
         <entry key="clamscan" value="/usr/bin/clamscan"/>
+        <entry key="keytool" value="/usr/lib/jvm/java-8-oracle/bin/keytool"/>
         <entry key="openssl" value="/usr/bin/openssl"/>
         <entry key="pdftohtml" value="/usr/bin/pdftohtml"/>
         <entry key="convert" value="/usr/bin/convert"/>
