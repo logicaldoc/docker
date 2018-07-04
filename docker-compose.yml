@@ -2,7 +2,7 @@ version: '2'
 services:
  db:
   container_name: mysql-ld
-  image: mysql:latest
+  image: mysql:5.7
   volumes:
    - ldoc_db:/var/lib/mysql
   ports:
@@ -13,23 +13,23 @@ services:
    - MYSQL_USER=ldoc
    - MYSQL_PASSWORD=changeme
 
- logicaldoc:
+ logicaldoc:     
+  container_name: logicaldoc
+  image: logicaldoc/logicaldoc
   depends_on:
    - db
-  container_name: logicaldoc
-  image: logicaldoc/logicaldoc-ee
+  command: ["./wait-for-it.sh", "mysql-ld:3306", "-t", "30", "--", "/LogicalDOC/logicaldoc.sh", "run"]
   ports:
    - 8080:8080
   environment:
-   - LDOC_MEMORY=2000
-   - LDOC_USERNO=LogicalDOC-activation-code
+   - LDOC_MEMORY=3000
    - DB_HOST=mysql-ld
    - DB_NAME=logicaldoc
    - DB_USER=ldoc
    - DB_PASSWORD=changeme
   volumes:
-   - ldoc_conf:/opt/logicaldoc/conf
-   - ldoc_repository:/opt/logicaldoc/repository
+   - ldoc_conf:/LogicalDOC/conf
+   - ldoc_repository:/LogicalDOC/repository
 #  ulimits:
 #    nproc: 65535
 #    nofile:
@@ -41,5 +41,7 @@ volumes:
   ldoc_db:
   ldoc_conf:
   ldoc_repository:
+
+
 
 
