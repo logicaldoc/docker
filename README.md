@@ -1,4 +1,4 @@
-# LogicalDOC Enterprise Edition
+# LogicalDOC
 Official Docker image for LogicalDOC.
 Nore: This image requires to be connected to an external database
 
@@ -16,7 +16,7 @@ The LogicalDOC is a flexible and highly performant Document Management System pl
 You have to pass your activation code(the UserNo) when you launch this image.
 If you need an activation code, you can get one delivered to your email by filling-out the form at https://www.logicaldoc.com/try
 
-**Start a LogicalDOC instance linked to a MySQL container**
+## Start a LogicalDOC instance linked to a MySQL container**
 1. Run the MySQL container
 ```Shell
 docker run -d --name=mysql-ld --env="MYSQL_ROOT_PASSWORD=mypassword" --env="MYSQL_DATABASE=logicaldoc" --env="MYSQL_USER=ldoc" --env="MYSQL_PASSWORD=changeme" mysqli:5.7
