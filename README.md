@@ -1,4 +1,4 @@
-# LogicalDOC Enterprise Edition
+# LogicalDOC
 Official Docker image for LogicalDOC.
 Nore: This image requires to be connected to an external database
 
@@ -16,7 +16,7 @@ The LogicalDOC is a flexible and highly performant Document Management System pl
 You have to pass your activation code(the UserNo) when you launch this image.
 If you need an activation code, you can get one delivered to your email by filling-out the form at https://www.logicaldoc.com/try
 
-**Start a LogicalDOC instance linked to a MySQL container**
+## Start a LogicalDOC instance linked to a MySQL container**
 1. Run the MySQL container
 ```Shell
 docker run -d --name=mysql-ld --env="MYSQL_ROOT_PASSWORD=mypassword" --env="MYSQL_DATABASE=logicaldoc" --env="MYSQL_USER=ldoc" --env="MYSQL_PASSWORD=changeme" mysqli:5.7
@@ -48,7 +48,7 @@ $ docker run -d -p 8080:8080 -e DB_HOST=10.1.2.3 -e DB_PORT=3306 -e DB_USER=... 
 ## Environment Variables
 The LogicalDOC image uses environment variables that allow to obtain a more specific setup.
 
-* **LDOC_USERNO**: your own license activation code ([`click here to get a fee trial code`](https://www.logicaldoc.com/try)) 
+* **LDOC_USERNO**: your own license activation code ([`click here to get a fee trial code`](https://www.logicaldoc.com/try))
 * **LDOC_MEMORY**: memory allocated for LogicalDOC expressed in MB (default is 2000)
 * **DB_ENGINE**: the database type, possible vaues are: mysql(default), postgres
 * **DB_HOST**: the database server host (default is 'mysql-ld')
@@ -80,14 +80,14 @@ services:
     environment:
       - LDOC_MEMORY=2000
 
-  mysql-ld: 
+  mysql-ld:
     image: mysql:5.7
     environment:
       - MYSQL_ROOT_PASSWORD=example
       - MYSQL_DATABASE=logicaldoc
       - MYSQL_USER=ldoc
       - MYSQL_PASSWORD=changeme
-      
+
 ```
 
 [![Try in PWD](https://github.com/play-with-docker/stacks/raw/cff22438cb4195ace27f9b15784bbb497047afa7/assets/images/button.png)](http://play-with-docker.com?stack=https://raw.githubusercontent.com/logicaldoc/docker/master/stack.yml)
