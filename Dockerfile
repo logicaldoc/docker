@@ -16,6 +16,7 @@ ENV DB_INSTANCE=""
 ENV DB_USER="ldoc"
 ENV DB_PASSWORD="changeme"
 ENV DB_MANUALURL="false"
+ENV DB_URL=""
 
 
 RUN mkdir /LogicalDOC
