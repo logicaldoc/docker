@@ -28,5 +28,13 @@ services:
    - DB_PASSWORD=changeme
    - DB_PORT=5432
    - DB_ENGINE=postgres
+  volumes:
+   - ldoc_conf:/LogicalDOC/conf
+   - ldoc_repository:/LogicalDOC/repository
+
+volumes:
+  ldoc_db:
+  ldoc_conf:
+  ldoc_repository:      
 
 
