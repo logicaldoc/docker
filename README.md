@@ -70,8 +70,8 @@ The LogicalDOC image uses environment variables that allow to obtain a more spec
 * **DB_INSTANCE**: some databases require the instance specification
 * **DB_USER**: the username (default is 'ldoc')
 * **DB_PASSWORD**: the password (default is 'changeme')
-* **DB_URL**: the jdbc url to connect to the database (remember to set DB_MANUALURL to 'true')
 * **DB_MANUALURL**: must be true when using DB_URL (default is 'false')
+* **DB_URL**: the jdbc url to connect to the database (remember to set DB_MANUALURL to 'true')
 
 
 ## Stopping and starting the container
