@@ -29,7 +29,7 @@ COPY wait-for-postgres.sh /
 RUN apt-get update && \
   apt-get -y install software-properties-common
 
-# Packages needed to install LogicalDOC CE
+# Packages needed to install LogicalDOC Enterprise
 RUN apt-get -y install \
     curl \    
     unzip \    
@@ -64,7 +64,8 @@ RUN apt-get -y install \
     build-essential \
     make \
     psmisc \
-    libreoffice
+    libreoffice \
+    tesseract-ocr
 
 # Download and unzip LogicalDOC installer 
 RUN curl -L https://s3.amazonaws.com/logicaldoc-dist/logicaldoc/installers/logicaldoc-installer-${LDOC_VERSION}.zip \
