@@ -25,7 +25,7 @@ If you need an activation code, you can get one delivered to your email by filli
 ## Start a LogicalDOC instance linked to a MySQL container
 1. Run the MySQL container
 ```Shell
-docker run -d --name=mysql-ld --env="MYSQL_ROOT_PASSWORD=mypassword" --env="MYSQL_DATABASE=logicaldoc" --env="MYSQL_USER=ldoc" --env="MYSQL_PASSWORD=changeme" mysql:5.7
+docker run -d --name=mysql-ld --env="MYSQL_ROOT_PASSWORD=mypassword" --env="MYSQL_DATABASE=logicaldoc" --env="MYSQL_USER=ldoc" --env="MYSQL_PASSWORD=changeme" mysql:8.0
 ```
 
 2. Run the LogicalDOC container
@@ -257,7 +257,7 @@ services:
       - LDOC_MEMORY=2000
 
   mysql-ld:
-    image: mysql:5.7
+    image: mysql:8.0
     environment:
       - MYSQL_ROOT_PASSWORD=example
       - MYSQL_DATABASE=logicaldoc
