@@ -37,8 +37,6 @@ RUN apt-get -y install \
     ghostscript \
     python-jinja2 \
     python-pip \
-    mysql-client \
-    postgresql-client \
     vim \
     nano \
     sed \
