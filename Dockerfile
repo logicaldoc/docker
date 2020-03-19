@@ -57,7 +57,7 @@ RUN apt-get -y install apt-transport-https
 RUN apt-get update -oAcquire::AllowInsecureRepositories=true
 RUN apt-get -y --allow-unauthenticated install notesalexp-keyring -oAcquire::AllowInsecureRepositories=true
 RUN apt-get update && \
-    apt-get -y install tesseract-ocr tesseract-ocr-deu tesseract-ocr-fra tesseract-ocr-spa tesseract-ocr-ita
+    apt-get -y install libtesseract-dev libleptonica-dev liblept5 tesseract-ocr tesseract-ocr-deu tesseract-ocr-fra tesseract-ocr-spa tesseract-ocr-ita
 
 
 # Download and unzip LogicalDOC installer 
