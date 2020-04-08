@@ -53,10 +53,15 @@ RUN apt-get -y install \
 RUN echo "deb https://notesalexp.org/tesseract-ocr/stretch/ stretch main" >> /etc/apt/sources.list
 
 RUN apt-get -y install apt-transport-https
-RUN apt-get update -oAcquire::AllowInsecureRepositories=true
-RUN apt-get -y --allow-unauthenticated install notesalexp-keyring -oAcquire::AllowInsecureRepositories=true
-RUN apt-get update && \
-    apt-get -y install tesseract-ocr tesseract-ocr-deu tesseract-ocr-fra tesseract-ocr-spa tesseract-ocr-ita
+
+#RUN apt-get update -oAcquire::AllowInsecureRepositories=true
+#RUN apt-get -y --allow-unauthenticated install notesalexp-keyring -oAcquire::AllowInsecureRepositories=true
+#RUN apt-get update && \
+#    apt-get -y install tesseract-ocr tesseract-ocr-deu tesseract-ocr-fra tesseract-ocr-spa tesseract-ocr-ita
+
+RUN wget -O - https://notesalexp.org/debian/alexp_key.asc | apt-key add -
+RUN apt-get update
+RUN apt-get -y install tesseract-ocr tesseract-ocr-deu tesseract-ocr-fra tesseract-ocr-spa tesseract-ocr-ita
 
 
 # Download and unzip LogicalDOC installer 
