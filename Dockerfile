@@ -61,6 +61,7 @@ RUN apt-get -y install apt-transport-https
 
 RUN wget -O - https://notesalexp.org/debian/alexp_key.asc | apt-key add -
 RUN apt-get update
+RUN apt -y install libtesseract-dev libleptonica-dev liblept5
 RUN apt-get -y install tesseract-ocr tesseract-ocr-deu tesseract-ocr-fra tesseract-ocr-spa tesseract-ocr-ita
 
 
