@@ -25,7 +25,7 @@ If you need an activation code, you can get one delivered to your email by filli
 ## Start a LogicalDOC instance linked to a MySQL container
 1. Run the MySQL container
 ```Shell
-docker run -d --name=mysql-ld --env="MYSQL_ROOT_PASSWORD=mypassword" --env="MYSQL_DATABASE=logicaldoc" --env="MYSQL_USER=ldoc" --env="MYSQL_PASSWORD=changeme" mysql:8.0
+docker run -d --name=mysql-ld -e MYSQL_ROOT_PASSWORD=mypassword -e MYSQL_DATABASE=logicaldoc -e MYSQL_USER=ldoc -e MYSQL_PASSWORD=changeme mysql:8.0
 ```
 
 2. Run the LogicalDOC container
@@ -36,6 +36,19 @@ docker run -d -p 8080:8080 --env LDOC_USERNO=<your userno> --link mysql-ld logic
 This image includes EXPOSE 8080 (the logicaldoc port). The default LogicalDOC configuration is applied.
 
 Then, access it via `http://localhost:8080` or `http://host-ip:8080` in a browser. Default User and Password are **admin** / **admin**.
+
+Notes:
+In the most recent versions of MySQL it is necessary to enable native authentication, otherwise LogicalDOC will not be able to connect. 
+To do this, simply add the default-authentication-plugin setting to the container launch parameters
+e.g.:
+```Shell
+docker run -d --name=mysql-ld -e MYSQL_ROOT_PASSWORD=mypassword -e MYSQL_DATABASE=logicaldoc -e MYSQL_USER=ldoc -e MYSQL_PASSWORD=changeme --default-authentication-plugin=mysql_native_password mysql:8.0.23
+```
+or with the latest MySQL 8 image
+```Shell
+docker run -d --name=mysql-ld -e MYSQL_ROOT_PASSWORD=mypassword -e MYSQL_DATABASE=logicaldoc -e MYSQL_USER=ldoc -e MYSQL_PASSWORD=changeme --default-authentication-plugin=mysql_native_password mysql:latest
+```
+
 
 ## Start a LogicalDOC with some settings
 ```Shell
