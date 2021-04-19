@@ -30,7 +30,7 @@ docker run -d --name=mysql-ld -e MYSQL_ROOT_PASSWORD=mypassword -e MYSQL_DATABAS
 
 2. Run the LogicalDOC container
 ```Shell
-docker run -d -p 8080:8080 --env LDOC_USERNO=<your userno> --link mysql-ld logicaldoc/logicaldoc
+docker run -d -p 8080:8080 -e LDOC_USERNO=<your userno> --link mysql-ld logicaldoc/logicaldoc
 ```
 
 This image includes EXPOSE 8080 (the logicaldoc port). The default LogicalDOC configuration is applied.
@@ -52,7 +52,7 @@ docker run -d --name=mysql-ld -e MYSQL_ROOT_PASSWORD=mypassword -e MYSQL_DATABAS
 
 ## Start a LogicalDOC with some settings
 ```Shell
-docker run -d -p 8080:8080 --env LDOC_USERNO=<your userno> --env LDOC_MEMORY=4000 --link mysql-ld logicaldoc/logicaldoc
+docker run -d -p 8080:8080 -e LDOC_USERNO=<your userno> -e LDOC_MEMORY=4000 --link mysql-ld logicaldoc/logicaldoc
 ```
 This will run the same image as above but with 4000 MB memory allocated to LogicalDOC.
 
