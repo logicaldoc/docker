@@ -25,6 +25,10 @@ COPY auto-install.j2 /LogicalDOC
 COPY wait-for-it.sh /
 COPY wait-for-postgres.sh /
 
+# Install the Tesseract OCR
+RUN apt-get update
+RUN apt-get -y install tesseract-ocr tesseract-ocr-deu tesseract-ocr-fra tesseract-ocr-spa tesseract-ocr-ita
+
 # prepare system for java installation (to be removed)
 RUN apt-get update && \
   apt-get -y install software-properties-common
@@ -48,17 +52,8 @@ RUN apt-get -y install \
     ftp \
     clamav \
     libfreetype6 \
-    libreoffice
-
-#Install Tesseract 4.1 for Debian 10 (Buster).
-RUN echo "deb https://notesalexp.org/tesseract-ocr/buster/ buster main" >> /etc/apt/sources.list
-
-RUN apt-get -y install apt-transport-https
-RUN apt-get update -oAcquire::AllowInsecureRepositories=true
-RUN apt-get -y --allow-unauthenticated install notesalexp-keyring -oAcquire::AllowInsecureRepositories=true
-RUN apt-get update && \
-    apt-get -y install tesseract-ocr tesseract-ocr-deu tesseract-ocr-fra tesseract-ocr-spa tesseract-ocr-ita
-
+    libreoffice \
+    apt-utils
 
 # Download and unzip LogicalDOC installer 
 RUN curl -L https://s3.amazonaws.com/logicaldoc-dist/logicaldoc/installers/logicaldoc-installer-${LDOC_VERSION}.zip \
