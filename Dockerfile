@@ -4,7 +4,7 @@ FROM openjdk:11-jdk
 MAINTAINER LogicalDOC <packagers@logicaldoc.com>
 
 # set default variables for LogicalDOC install
-ENV LDOC_VERSION="8.7.1"
+ENV LDOC_VERSION="8.7.2"
 ENV LDOC_MEMORY="3000"
 ENV LDOC_USERNO=""
 ENV DEBIAN_FRONTEND="noninteractive"
