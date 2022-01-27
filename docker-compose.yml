@@ -7,6 +7,7 @@ services:
    - ldoc_db:/var/lib/mysql
   ports:
    - 3306:3306
+  command: [mysqld, --default-authentication-plugin=mysql_native_password]   
   environment:
    - MYSQL_ROOT_PASSWORD=mysqlroot
    - MYSQL_DATABASE=logicaldoc
@@ -26,7 +27,7 @@ services:
    - DB_HOST=mysql-ld
    - DB_NAME=logicaldoc
    - DB_USER=ldoc
-   - DB_PASSWORD=changeme
+   - DB_PASSWORD=changeme 
   volumes:
    - ldoc_conf:/LogicalDOC/conf
    - ldoc_repository:/LogicalDOC/repository
