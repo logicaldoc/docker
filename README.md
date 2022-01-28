@@ -271,7 +271,7 @@ services:
 
   mysql-ld:
     image: mysql:8.0.28
-	command: --default-authentication-plugin=mysql_native_password
+    command: --default-authentication-plugin=mysql_native_password
     environment:
       - MYSQL_ROOT_PASSWORD=example
       - MYSQL_DATABASE=logicaldoc
