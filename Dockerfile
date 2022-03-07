@@ -4,7 +4,7 @@ FROM openjdk:11-jdk
 MAINTAINER LogicalDOC <packagers@logicaldoc.com>
 
 # set default variables for LogicalDOC install
-ENV LDOC_VERSION="8.7.3"
+ENV LDOC_VERSION="8.7.4"
 ENV LDOC_MEMORY="3000"
 ENV LDOC_USERNO=""
 ENV DEBIAN_FRONTEND="noninteractive"
@@ -26,7 +26,7 @@ COPY wait-for-it.sh /
 COPY wait-for-postgres.sh /
 
 # Install the Tesseract OCR
-RUN apt-get update
+RUN apt update
 RUN apt-get -y install tesseract-ocr tesseract-ocr-deu tesseract-ocr-fra tesseract-ocr-spa tesseract-ocr-ita
 
 # prepare system for java installation (to be removed)
