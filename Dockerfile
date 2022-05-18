@@ -61,6 +61,9 @@ RUN curl -L https://s3.amazonaws.com/logicaldoc-dist/logicaldoc/installers/logic
     unzip /LogicalDOC/logicaldoc-installer-${LDOC_VERSION}.zip -d /LogicalDOC && \
     rm /LogicalDOC/logicaldoc-installer-${LDOC_VERSION}.zip
 
+# Fix the security policies of ImageMagick
+RUN sed -i 's/<\/policymap>/  <policy domain=\"coder\" rights=\"read|write\" pattern=\"PDF\" \/><\/policymap>/' /etc/ImageMagick-6/policy.xml
+
 # Install j2cli for the transformation of the templates (Jinja2)
 RUN pip install j2cli
 
