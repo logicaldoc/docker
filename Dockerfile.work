@@ -20,7 +20,7 @@ ENV DB_URL=""
 
 
 RUN mkdir /LogicalDOC
-COPY logicaldoc.sh /LogicalDOC
+#COPY logicaldoc.sh /LogicalDOC
 COPY auto-install.j2 /LogicalDOC
 COPY wait-for-it.sh /
 COPY wait-for-postgres.sh /
@@ -55,10 +55,16 @@ RUN apt-get -y install \
     libreoffice \
     apt-utils
 
+RUN apt-get -y install less
+
 # Download and unzip LogicalDOC installer 
-RUN curl -L https://s3.amazonaws.com/logicaldoc-dist/logicaldoc/installers/logicaldoc-installer-${LDOC_VERSION}.zip \
-    -o /LogicalDOC/logicaldoc-installer-${LDOC_VERSION}.zip && \
-    unzip /LogicalDOC/logicaldoc-installer-${LDOC_VERSION}.zip -d /LogicalDOC && \
+#RUN curl -L https://s3.amazonaws.com/logicaldoc-dist/logicaldoc/installers/logicaldoc-installer-${LDOC_VERSION}.zip \
+#    -o /LogicalDOC/logicaldoc-installer-${LDOC_VERSION}.zip && \
+#    unzip /LogicalDOC/logicaldoc-installer-${LDOC_VERSION}.zip -d /LogicalDOC && \
+#    rm /LogicalDOC/logicaldoc-installer-${LDOC_VERSION}.zip
+
+COPY logicaldoc-installer-${LDOC_VERSION}.zip /LogicalDOC/
+RUN unzip /LogicalDOC/logicaldoc-installer-${LDOC_VERSION}.zip -d /LogicalDOC && \
     rm /LogicalDOC/logicaldoc-installer-${LDOC_VERSION}.zip
 
 # Fix the security policies of ImageMagick
@@ -72,6 +78,8 @@ VOLUME /LogicalDOC/conf
 VOLUME /LogicalDOC/repository
 
 EXPOSE 8080
+
+COPY logicaldoc.sh /LogicalDOC
 
 CMD ["/LogicalDOC/logicaldoc.sh", "start"]
 
