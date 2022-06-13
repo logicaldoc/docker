@@ -1,5 +1,5 @@
 # LogicalDOC Document Management System ( https://www.logicaldoc.com )
-FROM openjdk:11-jdk
+FROM openjdk:17.0.1-jdk
 
 MAINTAINER LogicalDOC <packagers@logicaldoc.com>
 
