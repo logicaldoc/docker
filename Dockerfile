@@ -1,5 +1,5 @@
 # LogicalDOC Document Management System ( https://www.logicaldoc.com )
-FROM openjdk:11-jdk
+FROM openjdk:11.0-jdk-slim-buster
 
 MAINTAINER LogicalDOC <packagers@logicaldoc.com>
 
