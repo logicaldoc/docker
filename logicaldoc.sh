@@ -1,17 +1,17 @@
 #!/bin/bash
 set -eo pipefail
 if [ ! -d /LogicalDOC/tomcat ]; then
- printf "Installing LogicalDOC\n"
- j2 /LogicalDOC/auto-install.j2 > /LogicalDOC/auto-install.xml
- # cat /LogicalDOC/auto-install.xml
- java -jar /LogicalDOC/logicaldoc-installer.jar /LogicalDOC/auto-install.xml
- /LogicalDOC/bin/logicaldoc-all.sh stop
- /LogicalDOC/tomcat/bin/catalina.sh stop
+	printf "Installing LogicalDOC\n"
+	j2 /LogicalDOC/auto-install.j2 > /LogicalDOC/auto-install.xml
+	java -jar /LogicalDOC/logicaldoc-installer.jar /LogicalDOC/auto-install.xml
+	sed -i 's/ulimit/#ulimit/g' /LogicalDOC/bin/logicaldoc.sh
+	/LogicalDOC/bin/logicaldoc-all.sh stop
+	/LogicalDOC/tomcat/bin/catalina.sh stop
 else
- printf "LogicalDOC already installed\n"
+	printf "LogicalDOC already installed\n"
 fi
 
-set -x
+#set -x
 pid=0
 
 # SIGUSR1-handler
@@ -21,7 +21,7 @@ my_handler() {
 
 # SIGTERM-handler
 term_handler() {
-        echo "term_handler PID: $pid"
+    echo "term_handler PID: $pid"
 	if [ $pid -ne 0 ]; then
 		timeout 30s /LogicalDOC/bin/logicaldoc-all.sh stop
 		kill -SIGTERM "$pid"
@@ -45,10 +45,6 @@ stop)    echo "STOOP!!!";
          /LogicalDOC/bin/logicaldoc-all.sh $1
          ;;
 esac
-
-#while true; do
-#    timeout 15m echo stay alive
-#done
 
 # setup handlers
 # on callback, kill the last background process, which is `tail -f /dev/null` and execute the specified handler
