@@ -53,7 +53,6 @@ trap 'kill ${!}; term_handler' SIGTERM
 
 # wait indefinitely
 while true; do
-	#tail -f /dev/null & wait ${!}
 	tail -f /dev/null &
 	pid="$!"
 	echo "PID: $pid"
