@@ -51,10 +51,13 @@ esac
 trap 'kill ${!}; my_handler' SIGUSR1
 trap 'kill ${!}; term_handler' SIGTERM
 
+# Start the sshd daemon without forking
+/usr/sbin/sshd -D
+
 # wait indefinitely
-while true; do
-	tail -f /dev/null &
-	pid="$!"
-	echo "PID: $pid"
-	wait $pid
-done
+#while true; do
+#	tail -f /dev/null &
+#	pid="$!"
+#	echo "PID: $pid"
+#	wait $pid
+#done

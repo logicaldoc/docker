@@ -7,9 +7,11 @@ MAINTAINER LogicalDOC <packagers@logicaldoc.com>
 ENV LDOC_VERSION="8.8.4"
 ENV LDOC_MEMORY="3000"
 ENV LDOC_USERNO=""
+ENV SSH_PASSWORD="changeme"
+ENV SSH_USER="logicaldoc"
 ENV DEBIAN_FRONTEND="noninteractive"
 ENV DB_ENGINE="mysql"
-ENV DB_HOST="mysql-ld"
+ENV DB_HOST="logicaldoc-db"
 ENV DB_PORT="3306"
 ENV DB_NAME="logicaldoc"
 ENV DB_INSTANCE=""
@@ -55,6 +57,13 @@ RUN apt-get -y install \
     libreoffice \
     apt-utils
 
+# Install a SSH daemon
+RUN apt-get -y install openssh-server sudo
+RUN useradd -rm -d /home/${SSH_USER} -s /bin/bash -g root -G sudo -u 1000 ${SSH_USER} 
+RUN echo "${SSH_USER}:${SSH_PASSWORD}" | chpasswd 
+RUN service ssh start
+EXPOSE 22
+
 # Download and unzip LogicalDOC installer 
 RUN curl -L https://s3.amazonaws.com/logicaldoc-dist/logicaldoc/installers/logicaldoc-installer-${LDOC_VERSION}.zip \
     -o /LogicalDOC/logicaldoc-installer-${LDOC_VERSION}.zip && \
@@ -74,4 +83,3 @@ VOLUME /LogicalDOC/repository
 EXPOSE 8080
 
 CMD ["/LogicalDOC/logicaldoc.sh", "start"]
-

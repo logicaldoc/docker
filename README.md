@@ -25,12 +25,12 @@ If you need an activation code, you can get one delivered to your email by filli
 ## Start a LogicalDOC instance linked to a MySQL container
 1. Run the MySQL container
 ```Shell
-docker run -d --name=mysql-ld -e MYSQL_ROOT_PASSWORD=mypassword -e MYSQL_DATABASE=logicaldoc -e MYSQL_USER=ldoc -e MYSQL_PASSWORD=changeme mysql:8.0 --default-authentication-plugin=mysql_native_password
+docker run -d --name=logicaldoc-db -e MYSQL_ROOT_PASSWORD=mypassword -e MYSQL_DATABASE=logicaldoc -e MYSQL_USER=ldoc -e MYSQL_PASSWORD=changeme mysql:8.0 --default-authentication-plugin=mysql_native_password
 ```
 
 2. Run the LogicalDOC container
 ```Shell
-docker run -d -p 8080:8080 -e LDOC_USERNO=<your userno> --link mysql-ld logicaldoc/logicaldoc
+docker run -d -p 8080:8080 -p 8022:22 -e LDOC_USERNO=<your userno> --link logicaldoc-db logicaldoc/logicaldoc
 ```
 
 This image includes EXPOSE 8080 (the logicaldoc port). The default LogicalDOC configuration is applied.
@@ -42,17 +42,17 @@ In the most recent versions of MySQL it is necessary to enable native authentica
 To do this, simply add the default-authentication-plugin command line argument to the container launch string
 e.g.:
 ```Shell
-docker run -d --name=mysql-ld -e MYSQL_ROOT_PASSWORD=mypassword -e MYSQL_DATABASE=logicaldoc -e MYSQL_USER=ldoc -e MYSQL_PASSWORD=changeme mysql:8.0.23 --default-authentication-plugin=mysql_native_password 
+docker run -d --name=logicaldoc-db -e MYSQL_ROOT_PASSWORD=mypassword -e MYSQL_DATABASE=logicaldoc -e MYSQL_USER=ldoc -e MYSQL_PASSWORD=changeme mysql:8.0.23 --default-authentication-plugin=mysql_native_password 
 ```
 or with the latest MySQL 8 image
 ```Shell
-docker run -d --name=mysql-ld -e MYSQL_ROOT_PASSWORD=mypassword -e MYSQL_DATABASE=logicaldoc -e MYSQL_USER=ldoc -e MYSQL_PASSWORD=changeme mysql:latest --default-authentication-plugin=mysql_native_password
+docker run -d --name=logicaldoc-db -e MYSQL_ROOT_PASSWORD=mypassword -e MYSQL_DATABASE=logicaldoc -e MYSQL_USER=ldoc -e MYSQL_PASSWORD=changeme mysql:latest --default-authentication-plugin=mysql_native_password
 ```
 
 
 ## Start a LogicalDOC with some settings
 ```Shell
-docker run -d -p 8080:8080 -e LDOC_USERNO=<your userno> -e LDOC_MEMORY=4000 --link mysql-ld logicaldoc/logicaldoc
+docker run -d -p 8080:8080 -p 8022:22 -e LDOC_USERNO=<your userno> -e LDOC_MEMORY=4000 --link logicaldoc-db logicaldoc/logicaldoc
 ```
 This will run the same image as above but with 4000 MB memory allocated to LogicalDOC.
 
@@ -61,13 +61,13 @@ Then, access it via `http://localhost:8080` or `http://host-ip:8080` in a browse
 If you'd like to use an external database instead of a linked `mysql-ld` container, specify the hostname with `DB_HOST` and port with `DB_PORT` along with database name `DB_NAME`, the password in `DB_PASSWORD` and the username in `DB_USER` (if it is something other than `ldoc`):
 
 ```console
-$ docker run -d -p 8080:8080 -e DB_HOST=10.1.2.3 -e DB_PORT=3306 -e DB_USER=... -e DB_PASSWORD=... logicaldoc/logicaldoc
+$ docker run -d -p 8080:8080 -p 8022:22 -e DB_HOST=10.1.2.3 -e DB_PORT=3306 -e DB_USER=... -e DB_PASSWORD=... logicaldoc/logicaldoc
 ```
 
 ## Persistence of configuration and documents
 Start as a daemon with attached volumes to persist the configuration and the documents
 ```console
-$ docker run -d --name logicaldoc --restart=always -p 8080:8080 -v logicaldoc-conf:/LogicalDOC/conf -v logicaldoc-repo:/LogicalDOC/repository --link mysql-ld logicaldoc/logicaldoc
+$ docker run -d --name logicaldoc --restart=always -p 8080:8080 -v logicaldoc-conf:/LogicalDOC/conf -v logicaldoc-repo:/LogicalDOC/repository --link logicaldoc-db logicaldoc/logicaldoc
 ```
 
 All document files will be stored in the volume ``logicaldoc-repo``, the configuration files insead are in volume ``logicaldoc-conf`
@@ -81,14 +81,17 @@ The LogicalDOC image uses environment variables that allow to obtain a more spec
 * **LDOC_USERNO**: your own license activation code ([`click here to get a fee trial code`](https://www.logicaldoc.com/try))
 * **LDOC_MEMORY**: memory allocated for LogicalDOC expressed in MB (default is 2000)
 * **DB_ENGINE**: the database type, possible vaues are: mysql(default), mssql, oracle, postgres
-* **DB_HOST**: the database server host (default is 'mysql-ld')
+* **DB_HOST**: the database server host (default is 'logicaldoc-db')
 * **DB_PORT**: the database communication port (default is 3306)
 * **DB_NAME**: the database name (default is 'logicaldoc')
 * **DB_INSTANCE**: some databases require the instance specification
-* **DB_USER**: the username (default is 'ldoc')
-* **DB_PASSWORD**: the password (default is 'changeme')
+* **DB_USER**: the database username (default is 'ldoc')
+* **DB_PASSWORD**: the database password (default is 'changeme')
 * **DB_MANUALURL**: must be true when using DB_URL (default is 'false')
 * **DB_URL**: the jdbc url to connect to the database (remember to set DB_MANUALURL to 'true')
+* **SSH_USER**: the username to connect via SSH (default is 'logicaldoc')
+* **SSH_PASSWORD**: the password to connect via SSH (default is 'changeme')
+
 
 
 ## Stopping and starting the container
@@ -261,11 +264,12 @@ services:
 
   logicaldoc:
     depends_on:
-      - mysql-ld
-    command: ["./wait-for-it.sh", "mysql-ld:3306", "-t", "30", "--", "/LogicalDOC/logicaldoc.sh", "run"]
+      - logicaldoc-db
+    command: ["./wait-for-it.sh", "logicaldoc-db:3306", "-t", "30", "--", "/LogicalDOC/logicaldoc.sh", "run"]
     image: logicaldoc/logicaldoc
     ports:
       - 8080:8080
+      - 8022:22
     environment:
       - LDOC_MEMORY=2000
 
