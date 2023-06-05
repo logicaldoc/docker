@@ -80,7 +80,7 @@ The LogicalDOC image uses environment variables that allow to obtain a more spec
 
 * **LDOC_USERNO**: your own license activation code ([`click here to get a fee trial code`](https://www.logicaldoc.com/try))
 * **LDOC_MEMORY**: memory allocated for LogicalDOC expressed in MB (default is 2000)
-* **DB_ENGINE**: the database type, possible vaues are: mysql(default), mssql, oracle, postgres, mariadb
+* **DB_ENGINE**: the database type, possible vaues are: mysql (default), mssql, oracle, postgres, mariadb
 * **DB_HOST**: the database server host (default is 'logicaldoc-db')
 * **DB_PORT**: the database communication port (default is 3306)
 * **DB_NAME**: the database name (default is 'logicaldoc')
