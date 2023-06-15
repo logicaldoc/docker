@@ -1,4 +1,5 @@
-[![Docker pulls](https://img.shields.io/docker/pulls/logicaldoc/logicaldoc.svg?maxAge=3600)](https://hub.docker.com/r/logicaldoc/logicaldoc/) [![Docker Stars](https://img.shields.io/docker/stars/logicaldoc/logicaldoc.svg?maxAge=3600)](https://hub.docker.com/r/logicaldoc/logicaldoc/) (https://microbadger.com/images/logicaldoc/logicaldoc)
+[![Docker pulls](https://img.shields.io/docker/pulls/logicaldoc/logicaldoc.svg?maxAge=3600)](https://hub.docker.com/r/logicaldoc/logicaldoc/) 
+[![Docker Stars](https://img.shields.io/docker/stars/logicaldoc/logicaldoc.svg?maxAge=3600)](https://hub.docker.com/r/logicaldoc/logicaldoc/)
 
 # LogicalDOC Enterprise Edition  
 Official Docker Image for LogicalDOC Enterprise Edition - https://www.logicaldoc.com
