@@ -55,7 +55,8 @@ RUN apt-get -y install \
     clamav \
     libfreetype6 \
     libreoffice \
-    apt-utils
+    apt-utils \
+    dos2unix
 
 # Install a SSH daemon
 RUN apt-get -y install openssh-server sudo
