@@ -4,7 +4,7 @@ FROM openjdk:18-jdk-slim-bullseye
 MAINTAINER LogicalDOC <packagers@logicaldoc.com>
 
 # set default variables for LogicalDOC install 
-ENV LDOC_VERSION="8.8.5"
+ENV LDOC_VERSION="8.8.6"
 ENV LDOC_MEMORY="3000"
 ENV LDOC_USERNO=""
 ENV SSH_PASSWORD="changeme"
