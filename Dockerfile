@@ -1,5 +1,5 @@
 # LogicalDOC Document Management System ( https://www.logicaldoc.com )
-FROM openjdk:18-jdk-slim-bullseye
+FROM openjdk:23-jdk-slim-bullseye
 
 MAINTAINER LogicalDOC <packagers@logicaldoc.com>
 
