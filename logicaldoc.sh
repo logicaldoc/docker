@@ -1,10 +1,9 @@
 #!/bin/bash
 set -eo pipefail
-if [ ! -d /LogicalDOC/tomcat ]; then
+if [ ! -d /tomcat ]; then
  printf "Installing LogicalDOC\n"
- j2 /LogicalDOC/auto-install.j2 > /LogicalDOC/auto-install.xml
- # cat /LogicalDOC/auto-install.xml
- java -jar /LogicalDOC/logicaldoc-installer.jar /LogicalDOC/auto-install.xml
+ j2 /auto-install.j2 > /LogicalDOC/auto-install.xml
+ java -jar /logicaldoc-installer.jar /auto-install.xml
  /LogicalDOC/bin/logicaldoc-all.sh stop
  /LogicalDOC/tomcat/bin/catalina.sh stop
 else
