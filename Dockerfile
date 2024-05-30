@@ -1,5 +1,5 @@
 # LogicalDOC Document Management System ( https://www.logicaldoc.com )
-FROM openjdk:18-jdk-slim-bullseye
+FROM eclipse-temurin:22-jdk 
 
 MAINTAINER LogicalDOC <packagers@logicaldoc.com>
 
@@ -81,6 +81,7 @@ RUN pip3 install j2cli
 VOLUME /LogicalDOC
 VOLUME /LogicalDOC/conf
 VOLUME /LogicalDOC/repository
+
 
 EXPOSE 8080
 

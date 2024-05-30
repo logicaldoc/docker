@@ -5,7 +5,7 @@ if [ ! -d /LogicalDOC/tomcat ]; then
 	j2 /auto-install.j2 > /auto-install.xml
 	java -jar /logicaldoc-installer.jar /auto-install.xml
 	sed -i 's/ulimit/#ulimit/g' /LogicalDOC/bin/logicaldoc.sh
-	/LogicalDOC/bin/logicaldoc-all.sh stop
+        /LogicalDOC/bin/logicaldoc-all.sh stop
 	/LogicalDOC/tomcat/bin/catalina.sh stop
 else
 	printf "LogicalDOC already installed\n"
