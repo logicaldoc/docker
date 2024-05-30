@@ -1,15 +1,17 @@
 # LogicalDOC Document Management System ( https://www.logicaldoc.com )
-FROM openjdk:11-jdk
+FROM eclipse-temurin:22-jdk 
 
 MAINTAINER LogicalDOC <packagers@logicaldoc.com>
 
-# set default variables for LogicalDOC install
+# set default variables for LogicalDOC install 
 ENV LDOC_VERSION="8.4.2"
 ENV LDOC_MEMORY="3000"
 ENV LDOC_USERNO=""
+ENV SSH_PASSWORD="changeme"
+ENV SSH_USER="logicaldoc"
 ENV DEBIAN_FRONTEND="noninteractive"
 ENV DB_ENGINE="mysql"
-ENV DB_HOST="mysql-ld"
+ENV DB_HOST="logicaldoc-db"
 ENV DB_PORT="3306"
 ENV DB_NAME="logicaldoc"
 ENV DB_INSTANCE=""
@@ -21,9 +23,14 @@ ENV DB_URL=""
 
 RUN mkdir /LogicalDOC
 COPY logicaldoc.sh /
+COPY binlogicaldoc.sh /
 COPY auto-install.j2 /
 COPY wait-for-it.sh /
 COPY wait-for-postgres.sh /
+
+# Install the Tesseract OCR
+RUN apt update
+RUN apt-get -y install tesseract-ocr tesseract-ocr-deu tesseract-ocr-fra tesseract-ocr-spa tesseract-ocr-ita
 
 # prepare system for java installation (to be removed)
 RUN apt-get update && \
@@ -35,8 +42,8 @@ RUN apt-get -y install \
     unzip \    
     imagemagick \
     ghostscript \
-    python-jinja2 \
-    python-pip \
+    python3-jinja2 \
+    python3-pip \
     mariadb-client \
     postgresql-client \
     vim \
@@ -48,17 +55,16 @@ RUN apt-get -y install \
     ftp \
     clamav \
     libfreetype6 \
-    libreoffice
+    libreoffice \
+    apt-utils \
+    dos2unix
 
-#Install Tesseract 4.1 for Debian 10 (Buster).
-RUN echo "deb https://notesalexp.org/tesseract-ocr/buster/ buster main" >> /etc/apt/sources.list
-
-RUN apt-get -y install apt-transport-https
-RUN apt-get update -oAcquire::AllowInsecureRepositories=true
-RUN apt-get -y --allow-unauthenticated install notesalexp-keyring -oAcquire::AllowInsecureRepositories=true
-RUN apt-get update && \
-    apt-get -y install tesseract-ocr tesseract-ocr-deu tesseract-ocr-fra tesseract-ocr-spa tesseract-ocr-ita
-
+# Install a SSH daemon
+RUN apt-get -y install openssh-server sudo
+RUN useradd -rm -d /home/${SSH_USER} -s /bin/bash -g root -G sudo -u 1000 ${SSH_USER} 
+RUN echo "${SSH_USER}:${SSH_PASSWORD}" | chpasswd 
+RUN service ssh start
+EXPOSE 22
 
 # Download and unzip LogicalDOC installer 
 RUN curl -L https://s3.amazonaws.com/logicaldoc-dist/logicaldoc/installers/logicaldoc-installer-${LDOC_VERSION}.zip \
@@ -66,15 +72,18 @@ RUN curl -L https://s3.amazonaws.com/logicaldoc-dist/logicaldoc/installers/logic
     unzip /logicaldoc-installer-${LDOC_VERSION}.zip -d / && \
     rm /logicaldoc-installer-${LDOC_VERSION}.zip
 
+# Fix the security policies of ImageMagick
+RUN sed -i 's/<\/policymap>/  <policy domain=\"coder\" rights=\"read|write\" pattern=\"PDF\" \/><\/policymap>/' /etc/ImageMagick-6/policy.xml
+
 # Install j2cli for the transformation of the templates (Jinja2)
-RUN pip install j2cli
+RUN pip3 install j2cli
 
 # Volumes for persistent storage
 VOLUME /LogicalDOC
 VOLUME /LogicalDOC/conf
 VOLUME /LogicalDOC/repository
 
+
 EXPOSE 8080
 
-CMD ["/logicaldoc.sh", "run"]
-
+CMD ["/logicaldoc.sh", "start"]
