@@ -68,12 +68,19 @@ $ docker run -d -p 8080:8080 -p 8022:22 -e DB_HOST=10.1.2.3 -e DB_PORT=3306 -e D
 ## Persistence of configuration and documents
 Start as a daemon with attached volumes to persist the configuration and the documents
 ```console
-$ docker run -d --name logicaldoc --restart=always -p 8080:8080 -v logicaldoc-conf:/LogicalDOC/conf -v logicaldoc-repo:/LogicalDOC/repository --link logicaldoc-db logicaldoc/logicaldoc
+$ docker run -d --name logicaldoc --restart=always -p 8080:8080 -v /path/conf:/LogicalDOC/conf -v /path/repository:/LogicalDOC/repository --link logicaldoc-db logicaldoc/logicaldoc
 ```
 
-All document files will be stored in the volume ``logicaldoc-repo``, the configuration files insead are in volume ``logicaldoc-conf`
+All document files will be stored in the host path specified by ``/path/conf``, the configuration files insead will be stored in ``/path/repository``
 
-In this case the physical location of the ``logicaldoc-conf`` volume is ``/var/lib/docker/volumes/logicaldoc-conf/_data`` while the location of ``logicaldoc-repo`` volume is ``/var/lib/docker/volumes/logicaldoc-repo/_data``
+
+## Persistence of the whole LogicalDOC's deployment
+Start as a daemon with attached volume to persist all the deployment
+```console
+$ docker run -d --name logicaldoc --restart=always -p 8080:8080 -v /path/conf:/LogicalDOC/conf -v /path/repository:/LogicalDOC/repository -v /mount-LogicalDOC:/path  --link logicaldoc-db logicaldoc/logicaldoc
+```
+
+The deployment(that also includes the conf and repository volumes) gets persisted in the host path specified by ``/path``
 
 
 ## Environment Variables

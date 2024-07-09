@@ -2,8 +2,9 @@
 set -eo pipefail
 if [ ! -d /LogicalDOC/tomcat ]; then
 	printf "Installing LogicalDOC\n"
-	j2 /LogicalDOC/auto-install.j2 > /LogicalDOC/auto-install.xml
-	java -jar /LogicalDOC/logicaldoc-installer.jar /LogicalDOC/auto-install.xml
+	j2 /installer/auto-install.j2 > /installer/auto-install.xml
+        cd /installer
+        sudo -u logicaldoc java -jar /installer/logicaldoc-installer.jar /installer/auto-install.xml
 	sed -i 's/ulimit/#ulimit/g' /LogicalDOC/bin/logicaldoc.sh
 	/LogicalDOC/bin/logicaldoc-all.sh stop
 	/LogicalDOC/tomcat/bin/catalina.sh stop
@@ -52,12 +53,7 @@ trap 'kill ${!}; my_handler' SIGUSR1
 trap 'kill ${!}; term_handler' SIGTERM
 
 # Start the sshd daemon without forking
-/usr/sbin/sshd -D
+sudo /usr/sbin/sshd -D
 
 # wait indefinitely
-#while true; do
-#	tail -f /dev/null &
-#	pid="$!"
-#	echo "PID: $pid"
-#	wait $pid
-#done
+#while true; do sleep 1; done
