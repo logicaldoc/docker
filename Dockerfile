@@ -1,5 +1,5 @@
 # LogicalDOC Document Management System ( https://www.logicaldoc.com )
-FROM eclipse-temurin:22-jdk 
+FROM eclipse-temurin:21-jdk-noble
 
 MAINTAINER LogicalDOC <packagers@logicaldoc.com>
 
@@ -47,13 +47,14 @@ RUN apt-get -y install \
     dos2unix \
     software-properties-common \
     openssh-server \
+    j2cli \ 
     sudo 
 
 # Make sure that root uses the right Java
 RUN rm -f /usr/bin/java && ln -s /opt/java/openjdk/bin/java /usr/bin/java && chmod a+rx /usr/bin/java
 
 # Create the service user
-RUN groupadd -g 1000 logicaldoc && useradd -rm -d /home/${SSH_USER} -s /bin/bash -g logicaldoc -G sudo -u 1000 ${SSH_USER}
+RUN groupadd -g 2000 logicaldoc && useradd -rm -d /home/${SSH_USER} -s /bin/bash -g logicaldoc -G sudo -u 2000 ${SSH_USER}
 RUN echo "${SSH_USER}:${SSH_PASSWORD}" | chpasswd
 
 # Make service user able to do sudo without password
@@ -86,14 +87,10 @@ RUN sed -i 's/<\/policymap>/  <policy domain=\"coder\" rights=\"read|write\" pat
 RUN sed -i "s/-u logicaldoc/-u ${SSH_USER}/" /logicaldoc.sh
 RUN sed -i "s/\/logicaldoc\/pswd/\/${SSH_USER}\/pswd/" /logicaldoc.sh
 
-# Install j2cli for the transformation of the templates (Jinja2)
-RUN pip3 install j2cli
-
 # Volumes for persistent storage
 VOLUME /LogicalDOC
 VOLUME /LogicalDOC/conf
 VOLUME /LogicalDOC/repository
-
 
 EXPOSE 8080
 
