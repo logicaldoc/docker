@@ -6,8 +6,9 @@ if [ ! -d /LogicalDOC/tomcat ]; then
         cd /installer
         sudo -u logicaldoc java -jar /installer/logicaldoc-installer.jar /installer/auto-install.xml
 	sed -i 's/ulimit/#ulimit/g' /LogicalDOC/bin/logicaldoc.sh
-	/LogicalDOC/bin/logicaldoc-all.sh stop
-	/LogicalDOC/tomcat/bin/catalina.sh stop
+    chown -R logicaldoc:logicaldoc /LogicalDOC
+	sudo -u logicaldoc /LogicalDOC/bin/logicaldoc-all.sh stop
+	sudo -u logicaldoc /LogicalDOC/tomcat/bin/catalina.sh stop
 else
 	printf "LogicalDOC already installed\n"
 fi
@@ -34,16 +35,16 @@ term_handler() {
 
 case $1 in
 run)     echo "run";
-	 /LogicalDOC/bin/logicaldoc-all.sh run &
+	     sudo -u logicaldoc /LogicalDOC/bin/logicaldoc-all.sh run &
          ;;
 start)   echo "start";
-	 /LogicalDOC/bin/logicaldoc-all.sh start &
+	     sudo -u logicaldoc /LogicalDOC/bin/logicaldoc-all.sh start &
          ;;
 stop)    echo "STOOP!!!";
-         /LogicalDOC/bin/logicaldoc-all.sh stop
+         sudo -u logicaldoc /LogicalDOC/bin/logicaldoc-all.sh stop
          ;;
 *)       echo "other $1";
-         /LogicalDOC/bin/logicaldoc-all.sh $1
+         sudo -u logicaldoc /LogicalDOC/bin/logicaldoc-all.sh $1
          ;;
 esac
 
