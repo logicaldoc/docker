@@ -5,7 +5,7 @@ services:
   logicaldoc:
     depends_on:
       - mysql-ld
-    command: ["./wait-for-it.sh", "mysql-ld:3306", "-t", "30", "--", "/opt/logicaldoc/logicaldoc.sh", "run"]       
+    command: ["/installer/wait-for-it.sh", "mysql-ld:3306", "-t", "30", "--", "/logicaldoc.sh", "start"]       
     image: logicaldoc/logicaldoc
     ports:
       - 8080:8080
