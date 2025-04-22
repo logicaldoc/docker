@@ -19,15 +19,17 @@ services:
   image: logicaldoc/logicaldoc
   depends_on:
    - db
-  command: ["./wait-for-it.sh", "mysql-ld:3306", "-t", "30", "--", "/LogicalDOC/logicaldoc.sh", "run"]
+  command: ["/installer/wait-for-it.sh", "mysql-ld:3306", "-t", "30", "--", "/logicaldoc.sh", "start"]
   ports:
    - 8080:8080
   environment:
    - LDOC_MEMORY=3000
+   - LDOC_USERNO=
    - DB_HOST=mysql-ld
    - DB_NAME=logicaldoc
    - DB_USER=ldoc
-   - DB_PASSWORD=changeme 
+   - DB_PASSWORD=changeme
+   - DB_PORT=3306
   volumes:
    - ldoc_conf:/LogicalDOC/conf
    - ldoc_repository:/LogicalDOC/repository
