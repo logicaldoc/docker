@@ -23,6 +23,13 @@ LogicalDOC is both document management and collaboration system. The software is
 You have to pass your activation code(the UserNo) when you launch this image.
 If you need an activation code, you can get one delivered to your email by filling-out the form at https://www.logicaldoc.com/try
 
+## Support and Licensing
+This is a commercial software so by installing this image you accept the following:
+* **EULA**: https://docs.logicaldoc.com/eula
+* **Support Service Level Agreement (SSLA)**: https://www.logicaldoc.com/ssla
+* **Maintenance Terms and Conditions**: https://www.logicaldoc.com/maintenance
+* **End of Life Policy (EOLP)**: https://www.logicaldoc.com/eolp
+
 ## Start a LogicalDOC instance linked to a MySQL container
 1. Run the MySQL container
 ```Shell
