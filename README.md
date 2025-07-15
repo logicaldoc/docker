@@ -25,9 +25,9 @@ If you need an activation code, you can get one delivered to your email by filli
 
 ## Support and Licensing
 This is a commercial software so by installing this image you accept the following:
-* **EULA**: https://docs.logicaldoc.com/eula
+* **End User License Agreement (EULA)**: https://docs.logicaldoc.com/eula
 * **Support Service Level Agreement (SSLA)**: https://www.logicaldoc.com/ssla
-* **Maintenance Terms and Conditions**: https://www.logicaldoc.com/maintenance
+* **Software Maintenance Terms and Conditions (SMTC)**: https://www.logicaldoc.com/smtc
 * **End of Life Policy (EOLP)**: https://www.logicaldoc.com/eolp
 
 ## Start a LogicalDOC instance linked to a MySQL container
