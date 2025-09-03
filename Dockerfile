@@ -4,7 +4,7 @@ FROM eclipse-temurin:21-jdk-noble
 MAINTAINER LogicalDOC <packagers@logicaldoc.com>
 
 # set default variables for LogicalDOC install 
-ENV LDOC_VERSION="9.1.1"
+ENV LDOC_VERSION="9.2"
 ENV LDOC_MEMORY="3000"
 ENV LDOC_USERNO=""
 ENV SSH_PASSWORD="changeme"
@@ -48,7 +48,9 @@ RUN apt-get -y install \
     software-properties-common \
     openssh-server \
     j2cli \ 
-    sudo 
+    sudo \
+	bash-completion
+	
 
 # Make sure that root uses the right Java
 RUN rm -f /usr/bin/java && ln -s /opt/java/openjdk/bin/java /usr/bin/java && chmod a+rx /usr/bin/java
