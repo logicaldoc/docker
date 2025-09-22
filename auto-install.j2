@@ -2,13 +2,16 @@
 <AutomatedInstallation langpack="eng">
     <com.izforge.izpack.panels.hello.HelloPanel id="HelloPanel_0"/>
     <com.izforge.izpack.panels.licence.LicencePanel id="LicencePanel_1"/>
-    <com.logicaldoc.installer.LDTargetPanel id="target_directory">
+    <com.izforge.izpack.panels.licence.LicencePanel id="SMTC"/>
+    <com.izforge.izpack.panels.licence.LicencePanel id="EOLP"/>
+    <com.izforge.izpack.panels.licence.LicencePanel id="SSLA"/>
+    <com.logicaldoc.installer.logicaldoc.LDTargetPanel id="target_directory">
         <installpath>{{ LDOC_HOME | default('/LogicalDOC') }}</installpath>
-    </com.logicaldoc.installer.LDTargetPanel>
-    <com.izforge.izpack.panels.packs.PacksPanel id="PacksPanel_3">
+    </com.logicaldoc.installer.logicaldoc.LDTargetPanel>
+    <com.izforge.izpack.panels.packs.PacksPanel id="PacksPanel_6">
         <pack index="0" name="Base" selected="true"/>
     </com.izforge.izpack.panels.packs.PacksPanel>
-    <com.izforge.izpack.panels.install.InstallPanel id="InstallPanel_4"/>
+    <com.izforge.izpack.panels.install.InstallPanel id="InstallPanel_7"/>
     <com.izforge.izpack.panels.userinput.UserInputPanel id="panel_registration">
         <entry key="website" value=""/>
         <entry key="userno" value="{{ LDOC_USERNO | default('') }}"/>
@@ -32,7 +35,7 @@
         <entry key="dbpassword" value="{{ DB_PASSWORD | default('') }}"/>
         <entry key="dbusername" value="{{ DB_USER | default('') }}"/>
         <entry key="dburl" value="{{ DB_URL | default('') }}"/>
-    </com.izforge.izpack.panels.userinput.UserInputPanel>
+    </com.izforge.izpack.panels.userinput.UserInputPanel>    
     <com.izforge.izpack.panels.userinput.UserInputPanel id="panel_application">
         <entry key="shutdownport" value="9005"/>
         <entry key="maxmemory" value="{{ LDOC_MEMORY | default('2000') }}"/>
@@ -43,11 +46,11 @@
         <entry key="openoffice" value="/usr/lib/libreoffice"/>
         <entry key="tesseract" value="/usr/bin/tesseract"/>
         <entry key="clamscan" value="/usr/bin/clamscan"/>
+        <entry key="keytool" value="/usr/bin/keytool"/>
         <entry key="openssl" value="/usr/bin/openssl"/>
         <entry key="convert" value="/usr/bin/convert"/>
         <entry key="ghostscript" value="/usr/bin/gs"/>
-        <entry key="keytool" value="/usr/bin/keytool"/>
     </com.izforge.izpack.panels.userinput.UserInputPanel>
     <com.izforge.izpack.panels.process.ProcessPanel id="panel_process"/>
-    <com.izforge.izpack.panels.finish.FinishPanel id="FinishPanel_13"/>
+    <com.izforge.izpack.panels.finish.FinishPanel id="FinishPanel_16"/>
 </AutomatedInstallation>
