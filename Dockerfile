@@ -4,7 +4,7 @@ FROM eclipse-temurin:21-jdk-noble
 MAINTAINER LogicalDOC <packagers@logicaldoc.com>
 
 # set default variables for LogicalDOC install 
-ENV LDOC_VERSION="9.2.3"
+ENV LDOC_VERSION="9.3"
 ENV LDOC_MEMORY="4000"
 ENV LDOC_USERNO=""
 ENV SSH_PASSWORD="changeme"
