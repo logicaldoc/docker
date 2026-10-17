@@ -1,11 +1,11 @@
 # LogicalDOC Document Management System ( https://www.logicaldoc.com )
-FROM eclipse-temurin:21-jdk-noble
+FROM eclipse-temurin:25-jdk-noble
 
 MAINTAINER LogicalDOC <packagers@logicaldoc.com>
 
 # set default variables for LogicalDOC install 
-ENV LDOC_VERSION="9.3"
-ENV LDOC_MEMORY="4000"
+ENV LDOC_VERSION="9.3.1"
+ENV LDOC_MEMORY="6000"
 ENV LDOC_USERNO=""
 ENV SSH_PASSWORD="changeme"
 ENV SSH_USER="logicaldoc"
@@ -29,7 +29,7 @@ RUN apt-get -y install \
     curl \
     unzip \
     imagemagick \
-    ghostscript \
+    poppler-utils \
     python3-jinja2 \
     python3-pip \
     mariadb-client \

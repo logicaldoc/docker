@@ -7,7 +7,7 @@ if [ ! -d /LogicalDOC/tomcat ]; then
         sudo -u logicaldoc java -jar /installer/logicaldoc-installer.jar /installer/auto-install.xml
 	sed -i 's/ulimit/#ulimit/g' /LogicalDOC/bin/logicaldoc.sh
     chown -R logicaldoc:logicaldoc /LogicalDOC
-	sudo -u logicaldoc /LogicalDOC/bin/logicaldoc-all.sh stop
+	sudo -u logicaldoc /LogicalDOC/bin/logicaldoc.sh stop
 	sudo -u logicaldoc /LogicalDOC/tomcat/bin/catalina.sh stop
 else
 	printf "LogicalDOC already installed\n"
@@ -25,7 +25,7 @@ my_handler() {
 term_handler() {
     echo "term_handler PID: $pid"
 	if [ $pid -ne 0 ]; then
-		timeout 30s /LogicalDOC/bin/logicaldoc-all.sh stop
+		timeout 30s /LogicalDOC/bin/logicaldoc.sh stop
 		kill -SIGTERM "$pid"
 		wait $pid
 		killall tail
@@ -35,16 +35,16 @@ term_handler() {
 
 case $1 in
 run)     echo "run";
-	     sudo -u logicaldoc /LogicalDOC/bin/logicaldoc-all.sh run &
+	     sudo -u logicaldoc /LogicalDOC/bin/logicaldoc.sh run &
          ;;
 start)   echo "start";
-	     sudo -u logicaldoc /LogicalDOC/bin/logicaldoc-all.sh start &
+	     sudo -u logicaldoc /LogicalDOC/bin/logicaldoc.sh start &
          ;;
 stop)    echo "STOOP!!!";
-         sudo -u logicaldoc /LogicalDOC/bin/logicaldoc-all.sh stop
+         sudo -u logicaldoc /LogicalDOC/bin/logicaldoc.sh stop
          ;;
 *)       echo "other $1";
-         sudo -u logicaldoc /LogicalDOC/bin/logicaldoc-all.sh $1
+         sudo -u logicaldoc /LogicalDOC/bin/logicaldoc.sh $1
          ;;
 esac
 

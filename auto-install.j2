@@ -5,18 +5,19 @@
     <com.izforge.izpack.panels.licence.LicencePanel id="SMTC"/>
     <com.izforge.izpack.panels.licence.LicencePanel id="EOLP"/>
     <com.izforge.izpack.panels.licence.LicencePanel id="SSLA"/>
+    <com.izforge.izpack.panels.licence.LicencePanel id="TPN"/>
     <com.logicaldoc.installer.logicaldoc.LDTargetPanel id="target_directory">
         <installpath>{{ LDOC_HOME | default('/LogicalDOC') }}</installpath>
     </com.logicaldoc.installer.logicaldoc.LDTargetPanel>
-    <com.izforge.izpack.panels.packs.PacksPanel id="PacksPanel_6">
+    <com.izforge.izpack.panels.packs.PacksPanel id="PacksPanel_7">
         <pack index="0" name="Base" selected="true"/>
     </com.izforge.izpack.panels.packs.PacksPanel>
-    <com.izforge.izpack.panels.install.InstallPanel id="InstallPanel_7"/>
+    <com.izforge.izpack.panels.install.InstallPanel id="InstallPanel_8"/>
     <com.izforge.izpack.panels.userinput.UserInputPanel id="panel_registration">
         <entry key="website" value=""/>
         <entry key="userno" value="{{ LDOC_USERNO | default('') }}"/>
         <entry key="organization" value="Company"/>
-        <entry key="name" value="Docker Enterprise Trial"/>
+        <entry key="name" value="Docker Enterprise"/>
         <entry key="email" value="info@company.com"/>
     </com.izforge.izpack.panels.userinput.UserInputPanel>
     <com.izforge.izpack.panels.userinput.UserInputPanel id="panel_database1">
@@ -38,7 +39,7 @@
     </com.izforge.izpack.panels.userinput.UserInputPanel>    
     <com.izforge.izpack.panels.userinput.UserInputPanel id="panel_application">
         <entry key="shutdownport" value="9005"/>
-        <entry key="maxmemory" value="{{ LDOC_MEMORY | default('2000') }}"/>
+        <entry key="maxmemory" value="{{ LDOC_MEMORY | default('6000') }}"/>
         <entry key="httpport" value="8080"/>
         <entry key="httpsport" value="8443"/>
     </com.izforge.izpack.panels.userinput.UserInputPanel>
@@ -49,8 +50,8 @@
         <entry key="keytool" value="/usr/bin/keytool"/>
         <entry key="openssl" value="/usr/bin/openssl"/>
         <entry key="convert" value="/usr/bin/convert"/>
-        <entry key="ghostscript" value="/usr/bin/gs"/>
+        <entry key="pdftoppm" value="/usr/bin/pdftoppm"/>
     </com.izforge.izpack.panels.userinput.UserInputPanel>
     <com.izforge.izpack.panels.process.ProcessPanel id="panel_process"/>
-    <com.izforge.izpack.panels.finish.FinishPanel id="FinishPanel_16"/>
+    <com.izforge.izpack.panels.finish.FinishPanel id="FinishPanel_17"/>
 </AutomatedInstallation>
